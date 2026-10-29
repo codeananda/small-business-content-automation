@@ -1,0 +1,18 @@
+{
+  "name": "whatsapp-reader",
+  "displayName": "WhatsApp Reader",
+  "version": "2.2.0",
+  "description": "Lets Claude read your WhatsApp chats on this Mac, voice notes in German and English included. Needs an Apple Silicon Mac on macOS 14 or later, the WhatsApp app linked to your phone, and Full Disk Access for the app Claude runs in.",
+  "author": { "name": "Adam Murphy" },
+  "license": "MIT",
+  "mcpServers": {
+    "whatsapp": {
+      "command": "uv",
+      "args": ["run", "--quiet", "--directory", "${CLAUDE_PLUGIN_ROOT}", "src/whatsapp_reader.py"],
+      "env": {
+        "UV_PROJECT_ENVIRONMENT": "${CLAUDE_PLUGIN_DATA}/venv",
+        "PATH": "${HOME}/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin"
+      }
+    }
+  }
+}

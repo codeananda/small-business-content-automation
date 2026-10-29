@@ -1,0 +1,14 @@
+[project]
+name = "whatsapp-reader"
+version = "2.2.0"
+description = "Lets Claude read WhatsApp Desktop chats on this Mac, voice notes in German and English included"
+requires-python = ">=3.10"
+dependencies = [
+    "mcp>=1.2,<2",
+    "mlx-whisper>=0.4",
+    "av>=12",
+    "pillow",
+    "numpy",
+    "pymupdf",
+    "openpyxl",
+]
