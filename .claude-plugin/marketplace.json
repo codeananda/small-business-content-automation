@@ -1,9 +1,14 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
-  "name": "shareable-skills",
+  "name": "small-business-content-automation",
   "owner": { "name": "Adam Murphy" },
-  "description": "Claude Code skills and tools from Adam Murphy, packaged for anyone's Mac.",
+  "description": "Daily Instagram carousels in your own voice, from WhatsApp, sales calls and spoken ideas. Built for La Luna Fertility.",
   "plugins": [
+    {
+      "name": "content",
+      "source": "./plugins/content",
+      "description": "Brand voice, /idea and the daily carousel run, with cards rendered on your Mac."
+    },
     {
       "name": "whatsapp-reader",
       "source": "./plugins/whatsapp-reader",

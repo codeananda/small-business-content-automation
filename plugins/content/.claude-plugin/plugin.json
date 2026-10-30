@@ -1,0 +1,8 @@
+{
+  "name": "content",
+  "displayName": "Content",
+  "version": "1.0.0",
+  "description": "Daily Instagram carousels from your WhatsApp chats, sales call transcripts and spoken ideas, written in your own brand voice. Built for La Luna Fertility.",
+  "author": { "name": "Adam Murphy" },
+  "license": "MIT"
+}

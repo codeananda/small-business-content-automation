@@ -1,10 +1,10 @@
 #!/bin/bash
-# Sets up Claude Code on a Mac with the shareable-skills plugins. No Homebrew, no password. Safe to run again.
-#   curl -fsSL https://raw.githubusercontent.com/codeananda/shareable-skills/main/setup.sh | bash
-# Pass a local checkout to install from it instead of GitHub: bash setup.sh /path/to/shareable-skills
+# Sets up Claude Code on a Mac with the content and WhatsApp plugins. No Homebrew, no password. Safe to run again.
+#   curl -fsSL https://raw.githubusercontent.com/codeananda/small-business-content-automation/main/setup.sh | bash
+# Pass a local checkout to install from it instead of GitHub: bash setup.sh /path/to/small-business-content-automation
 set -euo pipefail
 
-MARKETPLACE="${1:-codeananda/shareable-skills}"
+MARKETPLACE="${1:-codeananda/small-business-content-automation}"
 SETTINGS="$HOME/.claude/settings.json"
 export PATH="$HOME/.local/bin:$PATH"
 
@@ -29,9 +29,10 @@ command -v claude >/dev/null || curl -fsSL https://claude.ai/install.sh | bash
 command -v uv >/dev/null || curl -fsSL https://astral.sh/uv/install.sh | sh
 
 echo "== 4/6 Plugins"
-claude plugin marketplace add "$MARKETPLACE" >/dev/null 2>&1 || claude plugin marketplace update shareable-skills
+claude plugin marketplace add "$MARKETPLACE" >/dev/null 2>&1 || claude plugin marketplace update small-business-content-automation
+claude plugin install content@small-business-content-automation
 if [ "$whatsapp_ok" = 1 ]; then
-  claude plugin install whatsapp-reader@shareable-skills
+  claude plugin install whatsapp-reader@small-business-content-automation
 fi
 
 echo "== 5/6 Fewer \"allow?\" questions"
@@ -43,7 +44,10 @@ from pathlib import Path
 path = Path(sys.argv[1])
 settings = json.loads(path.read_text()) if path.exists() else {}
 allow = settings.setdefault("permissions", {}).setdefault("allow", [])
-for rule in ["Read", "Glob", "Grep", "WebSearch", "WebFetch", "mcp__plugin_whatsapp-reader_whatsapp"]:
+# Write, Edit and the uv/mkdir commands let the scheduled carousel run finish without anyone clicking "allow".
+for rule in ["Read", "Glob", "Grep", "Write", "Edit", "WebSearch", "WebFetch", "Skill",
+             "Bash(uv run:*)", "Bash(mkdir:*)", "Bash(ls:*)",
+             "mcp__plugin_whatsapp-reader_whatsapp", "mcp__claude_ai_Google_Drive", "mcp__claude_ai_ClickUp"]:
     if rule not in allow:
         allow.append(rule)
 path.parent.mkdir(parents=True, exist_ok=True)
@@ -63,5 +67,6 @@ Done. The last steps, by hand:
   3. Install WhatsApp from the App Store and link it to your phone.
   4. In the Full Disk Access window, click +, choose T3 Code from Applications and switch it on.
      Then quit T3 Code and open it again.
-  5. Ask Claude: "Which WhatsApp chats were active today?"
+  5. Install Google Drive for Desktop: https://www.google.com/drive/download/
+  6. In T3 Code, type /content:brand-voice to build your brand voice file, then /content:daily-carousels.
 EOF
