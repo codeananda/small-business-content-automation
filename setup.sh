@@ -6,7 +6,8 @@ set -euo pipefail
 
 MARKETPLACE="${1:-codeananda/small-business-content-automation}"
 SETTINGS="$HOME/.claude/settings.json"
-export PATH="$HOME/.local/bin:$PATH"
+# Every place an existing Claude Code or uv may live, so nothing already installed gets installed again.
+export PATH="$HOME/.local/bin:$HOME/.claude/local:/opt/homebrew/bin:/usr/local/bin:$PATH"
 
 echo "== 1/6 Checking this Mac"
 macos_major=$(sw_vers -productVersion | cut -d. -f1)
@@ -25,8 +26,8 @@ if ! xcode-select -p >/dev/null 2>&1; then
 fi
 
 echo "== 3/6 Claude Code and uv"
-command -v claude >/dev/null || curl -fsSL https://claude.ai/install.sh | bash
-command -v uv >/dev/null || curl -fsSL https://astral.sh/uv/install.sh | sh
+if command -v claude >/dev/null; then echo "   Claude Code already installed, skipping."; else curl -fsSL https://claude.ai/install.sh | bash; fi
+if command -v uv >/dev/null; then echo "   uv already installed, skipping."; else curl -fsSL https://astral.sh/uv/install.sh | sh; fi
 
 echo "== 4/6 Plugins"
 claude plugin marketplace add "$MARKETPLACE" >/dev/null 2>&1 || claude plugin marketplace update small-business-content-automation
