@@ -4,6 +4,8 @@ Claude Code plugins that write a small business's Instagram carousels every morn
 
 ## Set up a Mac
 
+You need a paid Claude plan (Pro or Max) and Google Chrome.
+
 Open Terminal, paste this line and press Enter:
 
 ```bash
@@ -16,9 +18,10 @@ What you do by hand afterwards:
 
 1. Install T3 Code from [t3.codes/download](https://t3.codes/download) and log in to Claude.
 2. In T3 Code, under Settings > Providers > Claude, type `--chrome` in Launch arguments.
-3. Install WhatsApp from the App Store and link it to your phone.
-4. In System Settings > Privacy & Security > Full Disk Access, add T3 Code and switch it on, then quit and reopen T3 Code.
-5. Install [Google Drive for Desktop](https://www.google.com/drive/download/) so the carousels land in your Drive.
+3. Add the [Claude in Chrome extension](https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn) to Chrome and sign in with the same Claude account, so Claude can use websites for you.
+4. Install WhatsApp from the App Store and link it to your phone.
+5. In System Settings > Privacy & Security > Full Disk Access, add T3 Code and switch it on, then quit and reopen T3 Code.
+6. Install [Google Drive for Desktop](https://www.google.com/drive/download/) so the carousels land in your Drive.
 
 ## First steps in T3 Code
 

@@ -57,6 +57,7 @@ EOF
 
 echo "== 6/6 Opening the pages for the last steps"
 open "https://t3.codes/download"
+open "https://chromewebstore.google.com/detail/claude/fcoeoabgfenejglbffodgkkbkcdhcgfn"
 [ "$whatsapp_ok" = 1 ] && open "macappstore://apps.apple.com/app/whatsapp-messenger/id310633997"
 open "x-apple.systempreferences:com.apple.preference.security?Privacy_AllFiles"
 
@@ -65,9 +66,10 @@ cat <<'EOF'
 Done. The last steps, by hand:
   1. Install T3 Code from the page that opened, then open it and log in to Claude when it asks.
   2. In T3 Code, go to Settings > Providers > Claude and type --chrome under Launch arguments.
-  3. Install WhatsApp from the App Store and link it to your phone.
-  4. In the Full Disk Access window, click +, choose T3 Code from Applications and switch it on.
+  3. Add the Claude extension to Chrome from the page that opened, and sign in with the same Claude account.
+  4. Install WhatsApp from the App Store and link it to your phone.
+  5. In the Full Disk Access window, click +, choose T3 Code from Applications and switch it on.
      Then quit T3 Code and open it again.
-  5. Install Google Drive for Desktop: https://www.google.com/drive/download/
-  6. In T3 Code, type /content:brand-voice to build your brand voice file, then /content:daily-carousels.
+  6. Install Google Drive for Desktop: https://www.google.com/drive/download/
+  7. In T3 Code, type /content:brand-voice to build your brand voice file, then /content:daily-carousels.
 EOF
