@@ -1,4 +1,4 @@
-"""WhatsApp reader for Claude Code (as a plugin) and Claude Desktop (as a .mcpb).
+"""WhatsApp reader for Claude Code, installed as a plugin.
 
 A local MCP server that reads the WhatsApp Desktop database on this Mac,
 read-only, and transcribes voice notes and video audio on this Mac's GPU
@@ -6,20 +6,17 @@ with MLX Whisper (German and English, language detected per note). Photos,
 documents and video stills come back through open_media. Nothing leaves the
 machine except what Claude is shown.
 
-Claude Desktop runs it with its own uv; Claude Code runs it with the uv that
-setup.sh installs. Needs an Apple Silicon Mac. One background thread transcribes; a reply waits
+Claude Code runs it with the uv that setup.sh installs. Needs an Apple Silicon Mac. One background thread transcribes; a reply waits
 for it at most REPLY_BUDGET_SECONDS and marks unfinished notes "still
 transcribing". Transcripts are cached on disk, so each note is transcribed
 once. The 1.6 GB speech model downloads on first start. Full Disk Access is
-checked against the app at the top of the process tree: T3 Code or Terminal
-under Claude Code, and uv itself under Claude Desktop, which launches uv as its
-own app as far as macOS privacy is concerned.
+checked against the app at the top of the process tree: T3 Code, or Terminal
+when Claude Code runs there.
 """
 
 from __future__ import annotations
 
 import asyncio
-import ctypes
 import io
 import json
 import os
@@ -267,9 +264,8 @@ class _open_db:
         if not (SHARED / "ChatStorage.sqlite").exists():
             raise RuntimeError(
                 "Cannot see the WhatsApp database. In System Settings > Privacy & Security > "
-                "Full Disk Access, click +, press Cmd+Shift+G, paste "
-                f"{_launcher_path()} , press Enter, choose Open, switch it on, "
-                "then quit and reopen Claude."
+                "Full Disk Access, click +, choose T3 Code from Applications (or Terminal, "
+                "if you run Claude there), switch it on, then quit and reopen that app."
             )
         self.tmp = tempfile.TemporaryDirectory()
         for suffix in ("", "-wal", "-shm"):
@@ -284,14 +280,6 @@ class _open_db:
     def __exit__(self, *exc) -> None:
         self.conn.close()
         self.tmp.cleanup()
-
-
-def _launcher_path() -> str:
-    """The uv binary that started this server: the program macOS asks Full Disk Access for."""
-    buffer = ctypes.create_string_buffer(4096)
-    libproc = ctypes.CDLL("/usr/lib/libproc.dylib")
-    length = libproc.proc_pidpath(os.getppid(), buffer, len(buffer))
-    return buffer.value.decode() if length > 0 else "uv"
 
 
 def _gather(conn: sqlite3.Connection, query: str, since: int) -> list[dict]:

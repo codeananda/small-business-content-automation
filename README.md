@@ -1,6 +1,6 @@
 # Small business content automation
 
-Claude Code plugins that write a small business's Instagram carousels every morning, in the owner's own voice, from the raw material they already have: WhatsApp chats with prospects, sales call transcripts and ideas spoken on the fly. Built for La Luna Fertility. It runs in T3 Code, in Claude Code Desktop and in the terminal, and it never posts anything by itself.
+Claude Code plugins that write a small business's Instagram carousels every morning, in the owner's own voice, from the raw material they already have: WhatsApp chats with prospects, sales call transcripts and ideas spoken on the fly. Built for La Luna Fertility. It runs in T3 Code (or Claude Code in the terminal), and it never posts anything by itself.
 
 ## Set up a Mac
 
@@ -45,7 +45,5 @@ To update to the latest versions: `claude plugin marketplace update small-busine
 2. List it in `.claude-plugin/marketplace.json`.
 3. Run `claude plugin validate .` and test with `claude -p "..." --plugin-dir plugins/<name>`.
 4. If it should install for everyone, add a `claude plugin install <name>@small-business-content-automation` line to `setup.sh`.
-
-`plugins/whatsapp-reader/manifest.json` also lets the same folder build the Claude Desktop extension: `npx @anthropic-ai/mcpb pack plugins/whatsapp-reader`.
 
 The card font is Montserrat, under the SIL Open Font License (`plugins/content/skills/daily-carousels/fonts/OFL.txt`).
